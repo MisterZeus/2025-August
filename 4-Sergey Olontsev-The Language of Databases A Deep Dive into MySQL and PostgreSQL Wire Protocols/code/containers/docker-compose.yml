@@ -1,0 +1,35 @@
+services:
+
+  mysql:
+    image: mysql:9.4.0
+    platform: linux/amd64
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: let-me-in
+      MYSQL_DATABASE: protocols
+    volumes:
+      - "./mysql_init.sql:/docker-entrypoint-initdb.d/mysql_init.sql"
+
+  postgres:
+    image: postgres:17.6
+    platform: linux/amd64
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'let-me-in'
+      POSTGRES_DB: 'protocols'
+    volumes:
+      - "./postgres_init.sql:/docker-entrypoint-initdb.d/init.sql"
+
+#  mssql:
+#    image: mcr.microsoft.com/mssql/server:2022-latest
+#    platform: linux/amd64
+#    ports:
+#      - "1433:1433"
+#    environment:
+#      ACCEPT_EULA: Y
+#      MSSQL_USER: SA
+#      MSSQL_SA_PASSWORD: 'myStrong(!)Password'
+#      MSSQL_PID: Developer
